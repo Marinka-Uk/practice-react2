@@ -1,11 +1,15 @@
-export const TodoList = ({ todos, onDelete }) => {
+export const TodoList = ({ todos, onDelete , toggleComplete}) => {
   return (
     <ul>
       {todos.map(todo => {
         return (
           <li key={todo.id}>
             <label>
-              <input type="checkbox" name="agree" />
+              <input type="checkbox" name="agree" checked={todo.completed}
+              onChange={()=>{
+toggleComplete(todo.id)
+              }}
+              />
             </label>
             <p>{todo.text}</p>
             <button
@@ -22,3 +26,4 @@ export const TodoList = ({ todos, onDelete }) => {
     </ul>
   );
 };
+
