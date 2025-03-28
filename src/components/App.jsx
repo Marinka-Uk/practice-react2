@@ -7,13 +7,41 @@ import { TodoEditor } from "./TodoEditor/TodoEditor";
 export class  App  extends Component{
   state={
     todos: [
-      { "id": "id-1", "text": "Вивчити основи React", "completed": true },
-      { "id": "id-2", "text": "Розібратися з React Router", "completed": false },
-      { "id": "id-3", "text": "Пережити Redux", "completed": false }
+      // { "id": "id-1", "text": "Вивчити основи React", "completed": true },
+      // { "id": "id-2", "text": "Розібратися з React Router", "completed": false },
+      // { "id": "id-3", "text": "Пережити Redux", "completed": false }
+
+      
     ],
     filter: '',
 
+
+
   }
+
+
+
+
+
+  componentDidMount(){
+   const todos = localStorage.getItem('todos')
+   const parsedTodos =  JSON.parse(todos)
+   this.setState({todos: parsedTodos})
+   console.log(todos);
+  }
+
+
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.todos ===  this.setState.todos ){
+return 
+    }
+    localStorage.setItem("todos", JSON.stringify(this.state.todos))
+    console.log(prevState.todos);
+    console.log(this.state.todos);
+   
+   
+  }
+
   deleteTodo = (id) => {
     this.setState((prevState) => ({
       todos: prevState.todos.filter((todo) => todo.id !== id),
