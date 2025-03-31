@@ -3,16 +3,20 @@ import { Component} from "react"
 // import initialTodos from "../todo.json"
 import { TodoList } from "./TodoList/TodoList";
 import { TodoEditor } from "./TodoEditor/TodoEditor";
+import { Modal } from "./Modal/Modal";
+
 
 export class  App  extends Component{
   state={
     todos: [
-      // { "id": "id-1", "text": "Вивчити основи React", "completed": true },
-      // { "id": "id-2", "text": "Розібратися з React Router", "completed": false },
-      // { "id": "id-3", "text": "Пережити Redux", "completed": false }
+      { "id": "id-1", "text": "Вивчити основи React", "completed": true },
+      { "id": "id-2", "text": "Розібратися з React Router", "completed": false },
+      { "id": "id-3", "text": "Пережити Redux", "completed": false }
 
-      
+    
     ],
+    showModal: false,
+
     filter: '',
 
 
@@ -60,6 +64,13 @@ addTodo=(labelText)=>{
   }))
 }
 
+handelShowModal = ()=>{
+  this.setState((prevState)=>({
+    showModal: !prevState.showModal
+  }))
+}
+
+
 toggleComplete=(id)=>{
 this.setState((prevState)=>({
   todos: prevState.todos.map((todo)=>(
@@ -72,10 +83,14 @@ render(){
   return(
 
     <>
-  <TodoEditor  addTodo={this.addTodo} />
  <TodoList  todos={this.state.todos} 
  toggleComplete={this.toggleComplete}
  onDelete = {this.deleteTodo}/>
+<button onClick={this.handelShowModal}>Відкрити модалку</button>
+
+{this.state.showModal && <Modal>
+<TodoEditor  addTodo={this.addTodo} onClose={this.handelShowModal}/>
+</Modal>}
  {/* <Filter/>
 <Info/> */}
     </>

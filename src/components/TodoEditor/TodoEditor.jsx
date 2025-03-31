@@ -15,7 +15,7 @@ export class TodoEditor extends Component {
         e.preventDefault()
 
         this.props.addTodo(this.state.textValue)
-
+        this.props.onClose()
         e.currentTarget.reset()
     }
 
