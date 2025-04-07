@@ -79,6 +79,8 @@ this.setState((prevState)=>({
 }))
 }
 
+
+
 render(){
   return(
 
@@ -88,7 +90,7 @@ render(){
  onDelete = {this.deleteTodo}/>
 <button onClick={this.handelShowModal}>Відкрити модалку</button>
 
-{this.state.showModal && <Modal>
+{this.state.showModal && <Modal closeModal={this.handelShowModal}>
 <TodoEditor  addTodo={this.addTodo} onClose={this.handelShowModal}/>
 </Modal>}
  {/* <Filter/>
