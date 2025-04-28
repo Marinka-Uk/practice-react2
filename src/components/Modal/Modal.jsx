@@ -1,46 +1,42 @@
-import { Component } from "react"
-import s from "./Modal.module.css"
+import { Component } from 'react';
+import s from './Modal.module.css';
+import { useEffect, useState } from 'react';
 
+export const Modal = ({ closeModal, Show, children }) => {
+  useEffect(() => {
+    window.addEventListener('keydown', onEscapeClose);
 
-export class Modal extends Component{
-    componentDidMount(){
-window.addEventListener('keydown', this.onEscapeClose)
-} 
-    
+   
+  }, []);
 
+ useEffect(() => {
+    return () => {
+        window.removeEventListener('keydown', onEscapeClose);
+      };
 
-onEscapeClose = (e)=>{
+ })
+  const onEscapeClose = e => {
     console.log(e.key);
-        if(e.key === 'Control'){
-            this.props.closeModal()
-        }
-}
-
-componentWillUnmount(){
-    window.removeEventListener('keydown', this.onEscapeClose)
-}
-
-
-onClose = (e )=>{
-if (e.target=== e.targetTurget){
-this.props.Show()
-
-
-if(e.target.className === 'backdrop'){
-    this.props.Show()
-}
-}
-}
-
-    render(){
-        return(
-            <>
-            <div onClick={this.onClose} className={s.backdrop}>
-            <div className={s.Modal}>
-    {this.props.children}
-            </div>
-        </div>
-        </>
-        )
+    if (e.key === 'Control') {
+      closeModal();
     }
-}
+  };
+
+  const onClose = e => {
+    if (e.target === e.targetTurget) {
+      Show();
+
+      if (e.target.className === 'backdrop') {
+        Show();
+      }
+    }
+  };
+
+  return (
+    <>
+      <div onClick={onClose} className={s.backdrop}>
+        <div className={s.Modal}>{children}</div>
+      </div>
+    </>
+  );
+};
